@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+body {
+    background-color: whitesmoke;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#search-word_form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    padding: 10px;
+    text-align: start;
+    font-weight: 700;
+    font-size: 16px;
+    color : #FF9800;
+}
+
+#search-input {
+    border: none;
+    width: 200px;
+    color :rgb(255, 152, 0);
+    font-weight: 400;
+    font-size: 20px;
+    border-bottom: 2px solid rgba(255, 186, 83, 0.3);
+    padding: 10px 20px;
+    margin-left: 50px;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+#search-input::placeholder {
+    color: rgb(255, 152, 0, 0.4);
+    font-size: 16px;
+}
+#search-input:hover {
+    border-bottom: 2px solid rgba(255, 186, 83, 0.6);
+}
+#search-input:focus {
+    outline: transparent;
+    border-bottom: 2px solid rgba(255, 186, 83, 1);
+}
+
+/* mean-box ------------------------------------------------ */
+#mean-box {
+    width: inherit;
+    background-color: rgb(81, 80, 80);
+    height: auto;
+    border-top: 1px solid rgba(255, 186, 83, 0.7);
+    display: none;
+    
+    font-size: 15px;
+    color: rgb(255, 186, 83);
+    font-weight: 400;
+}
+
+/* search_result ---------------------------------- */
+.mean_list {
+    background-color: rgb(92, 89, 89);
+}
+
+.mean_list li {
+    background-color: #a09c96;
+    display: flex;
+    justify-content: flex-start;
+
+    padding: 7px 12px;
+    margin: 5px 5px;
+}
+
+.column_id {
+    width: 8%;
+}
+.column_part {
+    width: 14%;
+}
+#mean_list .mean :last-child {
+    width: 70%;
+}
+
+/* search_result ---------------------------------- */
+.not_exist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: inherit;
+    height: 100px;
+}
+
+.not_exist p:first-child{
+    font-size: 20px;
+}
+
+.not_exist button {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 186, 83, 1);
+    color: rgba(255, 186, 83, 1);
+    font-size: 17px;
+    cursor: pointer;
+}
