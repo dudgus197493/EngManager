@@ -1,0 +1,45 @@
+.insert-word-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.insert-word-form input {
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid grey;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.insert-word-form input ::placeholder {
+    color: grey;
+}
+
+
+
+.insert-row {
+    margin-top: 10px;
+    display: flex;
+}
+
+/* insert form selectBox css */
+.insert-select-part {
+    border: none;
+    background-color: transparent;
+}
+.insert-select-part:focus {
+    outline: none;
+}
+
+.insert-button {
+    flex: 1;
+    padding: 5px 10px;
+    margin-right: auto;
+    border: none;
+    background-color: transparent;
+    color: rgb(58, 89, 151);;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}

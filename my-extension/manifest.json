@@ -8,6 +8,10 @@
         {
           "matches": ["<all_urls>"],
           "js": ["js/jquery.js"]
+          
         }],
+    "web_accessible_resources": [
+          "search.js"
+    ],
     "manifest_version" : 2
 }

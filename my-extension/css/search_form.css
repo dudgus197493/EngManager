@@ -1,74 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
-body {
-    background-color: whitesmoke;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-#search-word_form {
+.search-word-form {
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 10px;
 }
 
-form label {
-    padding: 10px;
-    text-align: start;
-    font-weight: 700;
-    font-size: 16px;
-    color : #FF9800;
-}
-
-#search-input {
+.search-input {
     border: none;
     width: 200px;
-    color :rgb(255, 152, 0);
+    color : black;
     font-weight: 400;
     font-size: 20px;
-    border-bottom: 2px solid rgba(255, 186, 83, 0.3);
+    border-bottom: 2px solid rgba(0, 122, 255, 0.3);
     padding: 10px 20px;
-    margin-left: 50px;
     background-color: transparent;
     transition: all 0.3s ease-in-out;
+    text-align: center;
 }
-#search-input::placeholder {
-    color: rgb(255, 152, 0, 0.4);
-    font-size: 16px;
+.search-input::placeholder {
+    color: rgb(125, 125, 215, 0.4);
+    font-size: 18px;
 }
-#search-input:hover {
-    border-bottom: 2px solid rgba(255, 186, 83, 0.6);
+.search-input:hover {
+    border-bottom: 2px solid rgba(0, 122, 255, 0.6);
 }
-#search-input:focus {
+.search-input:focus {
     outline: transparent;
-    border-bottom: 2px solid rgba(255, 186, 83, 1);
+    border-bottom: 2px solid rgba(0, 122, 255, 1);
 }
 
 /* mean-box ------------------------------------------------ */
 #mean-box {
     width: inherit;
-    background-color: rgb(81, 80, 80);
     height: auto;
-    border-top: 1px solid rgba(255, 186, 83, 0.7);
-    display: none;
-    
+    padding: 15px;
     font-size: 15px;
-    color: rgb(255, 186, 83);
     font-weight: 400;
 }
-
-/* search_result ---------------------------------- */
-.mean_list {
-    background-color: rgb(92, 89, 89);
+.hidden {
+    display: none;
 }
+/* search_result ---------------------------------- */
 
 .mean_list li {
-    background-color: #a09c96;
     display: flex;
+    box-sizing: border-box;
     justify-content: flex-start;
-
+    color: black;
     padding: 7px 12px;
     margin: 5px 5px;
 }
@@ -78,9 +56,11 @@ form label {
 }
 .column_part {
     width: 14%;
+    display: flex;
 }
-#mean_list .mean :last-child {
+.column_mean {
     width: 70%;
+    font-weight: 600;
 }
 
 /* search_result ---------------------------------- */
@@ -90,6 +70,7 @@ form label {
     align-items: center;
     justify-content: space-around;
     width: inherit;
+    color: rgba(0,0,0, 0.5);
     height: 100px;
 }
 
@@ -100,8 +81,8 @@ form label {
 .not_exist button {
     background-color: transparent;
     border-radius: 5px;
-    border: 1px solid rgba(255, 186, 83, 1);
-    color: rgba(255, 186, 83, 1);
+    border: 1px solid rgba(0, 122, 255, 0.3);
+    color: rgba(0, 122, 255, 0.3);
     font-size: 17px;
     cursor: pointer;
 }

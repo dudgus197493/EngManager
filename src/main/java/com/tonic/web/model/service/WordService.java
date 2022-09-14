@@ -1,6 +1,7 @@
 package com.tonic.web.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tonic.web.model.vo.Word;
 
@@ -8,10 +9,10 @@ public interface WordService {
 	
 	// 영단어 추가
 	/**
-	 * @param word
+	 * @param eng, mean, part
 	 * @return true면 영단어 추가 성공, false면 실패
 	 */
-	public boolean insertWord(Word word);
+	public boolean insertWord(String eng, String mean, String part);
 	
 	// 영단어 삭제
 	public void deleteWord();
@@ -27,5 +28,7 @@ public interface WordService {
 	public Word selectWord(String keyword);
 	
 	// 모든 영단어 조회
-	public ArrayList<Word> selectAllWord();
+	public List<Word> selectAllWord();
+	
+	public List<String> selectAllEng();
 }

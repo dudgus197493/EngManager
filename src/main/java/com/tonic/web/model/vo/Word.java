@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Word {
 	private String eng;			// 영단어
-	private HashMap<String, ArrayList<String>> meanHash; // 뜻
+	private HashMap<String, ArrayList<String>> meanHash = new HashMap<>(); // 뜻
 	private int accurateCount; 	// 정답 횟수
 	private int wrongCount;		// 틀린 횟수
 
@@ -22,11 +22,16 @@ public class Word {
 		this.eng = eng;
 	}
 	
-	public HashMap<String, ArrayList<String>> getMeanList() {
+	public HashMap<String, ArrayList<String>> getMeanHsah() {
 		return meanHash;
 	}
-	public void setMeanList(HashMap<String, ArrayList<String>> meanHash) {
-		this.meanHash = meanHash;
+	public void setMeanHash(String part, String mean) {
+		if(meanHash.containsKey(part)) {						// 이미 해당 품사 명으로 데이터가 있으면
+			meanHash.get(part).add(mean);	// ArrayList에 뜻만 추가
+		} else {											// 해당 품사 명으로 처음 등록하면
+			meanHash.put(part, new ArrayList<String>());		// ArrayList를 새로 만들고
+			meanHash.get(part).add(mean);
+		}
 	}
 	
 	public int getAccurateCount() {

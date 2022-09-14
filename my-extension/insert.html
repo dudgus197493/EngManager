@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="kor">
 <head>
-    
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/search_form.css" />
     <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/insert.css">
 
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
@@ -17,43 +14,31 @@
 </head>
 <body>
     <header>
-        <label class="header-label">Search</label>
+        <label>Insert</label>
         <div class="header_btn">
-            <button class="add-button">Add</button>
+            <button onclick="showHello()" class="add-button">Add</button>
             <button class="home-button">Home</button>
         </div>
+        
     </header>
-    <div id="form-box">
-                
-    </div>
+    <form id="search-word_form">    
+        <input id="search-input" type="text" placeholder="Insert Word"/>
+        <button hidden type="submit">검색</button>
+    </form>
     <div id="mean-box">
         
     </div>
-
-    <template class="search-template">
-        <form class="search-word-form">    
-            <input class="search-input" type="text" placeholder="Insert Word"/>
-            <button hidden type="submit">검색</button>
-        </form>
-    </template>
-    <template class="mean-template">
+    <template class="mean_template">
         <li class="mean">
             <div class="column_id"></div>
             <div class="column_part"></div>
             <div class="column_mean"></div>
         </li>
     </template>
-    <template class="noResult-template">
+    <template class="noResult_template">
         <div class="not_exist">
             <p class="error_message">검색결과가 없습니다.</p>
         </div>
-    </template>
-    <template>
-        <form class="insert-word-form">
-            <input class="insert-eng-input" type="text" placeholder="eng..">
-            <input class="insert-mean-input" type="text" placeholder="mean..">
-            <button class="insert-button">추가</button>
-        </form>
     </template>
 </body>
 </html>
