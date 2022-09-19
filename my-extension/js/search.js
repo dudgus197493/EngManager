@@ -100,7 +100,7 @@ window.addEventListener("load", function(){
             }
         })
 
-        if(result == false) {
+        if(result < 1) {
             alert("추가에 실패했습니다...");
         } else {
             alert("추가에 성공했습니다!");
@@ -116,21 +116,21 @@ window.addEventListener("load", function(){
 
     function showResult(result) {
         meanBox.innerHTML = "";
-        let keyArr = Object.keys(result.meanList);
+        let keyArr = Object.keys(result.meanHash);
         let ul = document.createElement("ul");
         ul.classList.add("mean_list");
         let template = document.querySelector(".mean-template");
         let idxCount = 0;
         for(let i = 0; i < keyArr.length; i++) {
             let key = keyArr[i];
-            for(let j = 0; j< result.meanList[key].length; j++) {
+            for(let j = 0; j< result.meanHash[key].length; j++) {
                 let cloneNode = document.importNode(template.content, true);
                 let columnId = cloneNode.querySelector(".column_id");
                 columnId.innerText = ++idxCount + ".";
                 let columnPart = cloneNode.querySelector(".column_part");
                 columnPart.innerText = key;
                 let columnMean = cloneNode.querySelector(".column_mean");
-                columnMean.innerText = result.meanList[key][j];
+                columnMean.innerText = result.meanHash[key][j];
                 ul.append(cloneNode);
             }
         }
@@ -160,14 +160,14 @@ window.addEventListener("load", function(){
     }
 
     function showListBox2(result){
-        let keys = Object.keys(result.meanList);
+        let keys = Object.keys(result.meanHash);
         meanBox.innerHTML = "";
         let ul = document.createElement("ul");
         ul.classList.add("mean_list");
         let count = 1;
         for(let i = 0; i<keys.length; i++){
             let key = keys[i];
-            for(let j = 0; j < result.meanList[key].length; j++) {
+            for(let j = 0; j < result.meanHash[key].length; j++) {
                 let li = document.createElement("li");
                 li.classList.add("mean");
                 let divId = document.createElement("div");
@@ -180,7 +180,7 @@ window.addEventListener("load", function(){
 
                 let divMean = document.createElement("div");
                 divMean.classList.add("column_mean");
-                divMean.innerText = result.meanList[key][j];
+                divMean.innerText = result.meanHash[key][j];
                 
                 li.append(divId);
                 li.append(divPart);
@@ -218,35 +218,35 @@ window.addEventListener("load", function(){
         searchForm.append(engInput);
         searchForm.append(submitBtn);
         formBox.append(searchForm);
-        $('#search-input').autocomplete({ // autocomplete 구현 시작부
-            source : function(request, response){
-                    $.ajax({
-                        type : "POST",
-                        url : "http://localhost:8080/api/word/selectall/word",
-                        async : false,  
-                        success : function(data) {
-                            meanBox.innerText = typeof data;
-                        }
-                    })
-                },
-            select : function(event, ui) { // item 선택 시 이벤트
-                console.log(ui.item);
-            },
-            focus : function(event, ui) { // 포커스 시 이벤트
-                return false;
-            },
-            minLength : 1, // 최소 글자 수
-            autoFocus : true, // true로 설정 시 메뉴가 표시 될 때, 첫 번째 항목에 자동으로 초점이 맞춰짐
-            classes : { // 위젯 요소에 추가 할 클래스를 지정
-                'ui-autocomplete' : 'highlight'
-            },
-            delay : 500, // 입력창에 글자가 써지고 나서 autocomplete 이벤트 발생될 떄 까지 지연 시간(ms)
-            disable : false, // 해당 값 true 시, 자동완성 기능 꺼짐
-            position : { my : 'right top', at : 'right bottom'}, // 제안 메뉴의 위치를 식별
-            close : function(event) { // 자동완성 창 닫아질 때의 이벤트
-                // console.log(event);
-            }
-        });
+        // $('#search-input').autocomplete({ // autocomplete 구현 시작부
+        //     source : function(request, response){
+        //             $.ajax({
+        //                 type : "POST",
+        //                 url : "http://localhost:8080/api/word/selectall/word",
+        //                 async : false,  
+        //                 success : function(data) {
+        //                     meanBox.innerText = typeof data;
+        //                 }
+        //             })
+        //         },
+        //     select : function(event, ui) { // item 선택 시 이벤트
+        //         console.log(ui.item);
+        //     },
+        //     focus : function(event, ui) { // 포커스 시 이벤트
+        //         return false;
+        //     },
+        //     minLength : 1, // 최소 글자 수
+        //     autoFocus : true, // true로 설정 시 메뉴가 표시 될 때, 첫 번째 항목에 자동으로 초점이 맞춰짐
+        //     classes : { // 위젯 요소에 추가 할 클래스를 지정
+        //         'ui-autocomplete' : 'highlight'
+        //     },
+        //     delay : 500, // 입력창에 글자가 써지고 나서 autocomplete 이벤트 발생될 떄 까지 지연 시간(ms)
+        //     disable : false, // 해당 값 true 시, 자동완성 기능 꺼짐
+        //     position : { my : 'right top', at : 'right bottom'}, // 제안 메뉴의 위치를 식별
+        //     close : function(event) { // 자동완성 창 닫아질 때의 이벤트
+        //         // console.log(event);
+        //     }
+        // });
 
         let searchBtn = headerBtnBox.querySelector(".search-button");
         if(!isEmpty(searchBtn)) {

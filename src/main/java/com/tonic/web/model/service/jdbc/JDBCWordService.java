@@ -1,5 +1,11 @@
 package com.tonic.web.model.service.jdbc;
 
+import static com.tonic.web.common.JDBCTemplate.close;
+import static com.tonic.web.common.JDBCTemplate.commit;
+import static com.tonic.web.common.JDBCTemplate.getConnection;
+import static com.tonic.web.common.JDBCTemplate.rollback;
+
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,21 +28,70 @@ public class JDBCWordService implements WordService{
 	 * @return 정상적으로 추가 성공 시 true
 	 */
 	@Override
-	public boolean insertWord(String eng, String mean, String part) {
-		boolean result = false;
-		// 중복 확인
-		if(!wordDAO.checkOverLap(eng)) {  // 영단어 중복확인
-			if(wordDAO.insertEng(eng) != 1) { // insert 후
-				System.out.println("insertEng가 정상적으로 수행되지 못했습니다."); // insert result가 1이 아니면 false 반환
-				return result;
-			}
-		} 
-		// meanHash 가져옴
-		Map<String, ArrayList<String>> meanHash = wordDAO.selectMean(eng);
+	public int insertWord(String eng, String mean, String part) throws Exception {
 
-		boolean flag = false;					// 하나라도 중복이 없으면 false
+		// 중복이면 리턴 0
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			// 중복확인
+			if(!wordDAO.engDupCheck(conn, eng)) {		// 중복이 아니면
+				result += wordDAO.insertEng(conn, eng); // 영단어 추가
+				result += wordDAO.insertMean(conn, eng, mean, part);
+			} else {
+				if(!meanDupCheck(wordDAO.selectWord(conn, eng), part, mean)) { // 중복이 아니면
+					result += wordDAO.insertMean(conn, eng, mean, part);	
+				}
+			}
+			
+			if(result >= 1) {							// insert 성공 시 COMMIT
+				commit(conn);
+			}
+		}catch(Exception e) {
+			rollback(conn);								// 하나라도 오류 생길 시 롤백
+			e.printStackTrace();
+			throw new Exception("영단어 추가중 예외 발생");
+		} finally {
+			close(conn);
+		}
+
+		return result;
+	}
+
+	@Override
+	public List<Word> selectAllWord() {
+//		List<Word> wordList =  wordDAO.selectAllWord();
+		return null;
+	}
+	
+	@Override public List<String> selectAllEng() {
+//		return wordDAO.selectAllEng(); 
+		return null;
+	}
+
+	@Override
+	public Word selectWord(String keyword) throws Exception {
+		Connection conn = getConnection();
+		
+		Word word = wordDAO.selectWord(conn, keyword);
+		
+		close(conn);
+		
+		return word;
+	}
+	
+	/** 영단어 뜻 중복검사
+	 * @param word
+	 * @param part
+	 * @param mean
+	 * @return 중복이면 true
+	 */
+	private boolean meanDupCheck(Word word, String part, String mean) {
+		Map<String, ArrayList<String>> meanHash = word.getMeanHash();
+		boolean flag = false; // 중복이면 true, 아니면 false;
 		if(!meanHash.isEmpty()) {				// meanHash 가 비어있지 않으면
 			// meanHash 돌면서 파라미터 mean과 문자열 유사성 검사
+			
 			for(String key : meanHash.keySet()) {
 				if(!key.equals(part)) {				// 품사가 다르면
 					continue;						// 다음 품사로 넘어감
@@ -50,48 +105,9 @@ public class JDBCWordService implements WordService{
 				if(flag == true) break;
 			}
 		}
-		if(!flag) {
-			if(wordDAO.insertMean(eng, mean, part) == 1) {	// 성공적으로 insert 완료 시 result = true;
-				result = true;
-			}
-		}
-		return result;
-	}
-
-	@Override
-	public void deleteWord() {
-
-	}
-
-	@Override
-	public void updateWord() {
-		
-	}
-
-	@Override
-	public List<Word> selectAllWord() {
-		List<Word> wordList =  wordDAO.selectAllWord();
-		return null;
+		return flag;
 	}
 	
-	@Override public List<String> selectAllEng() {
-		return wordDAO.selectAllEng(); 
-	}
-
-	@Override
-	public Word selectWord(String keyword) {
-		Word word = wordDAO.selectWord(keyword);
-		if(word != null) {
-			return word;
-		}
-		return null;
-	}
-	
-	/** 문자열 유사도 검사 (0 ~ 1)
-	 * @param s1
-	 * @param s2
-	 * @return s1, s2를 비교해서 유사도 반환
-	 */
 	private double getSimilarity(String s1, String s2) {
 		s1 = s1.replace(" ", "");		// 각 문자열 공백 제거
 		s2 = s2.replace(" ", "");
@@ -133,5 +149,4 @@ public class JDBCWordService implements WordService{
 		}
 		return costs[s2.length()];
 	}
-	
 }

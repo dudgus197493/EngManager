@@ -9,6 +9,8 @@ public class Word {
 	private int accurateCount; 	// 정답 횟수
 	private int wrongCount;		// 틀린 횟수
 
+	public Word() {}
+	
 	public Word(String eng, HashMap<String, ArrayList<String>> meanHash) {
 		this.eng = eng;
 		this.meanHash = meanHash;
@@ -22,7 +24,7 @@ public class Word {
 		this.eng = eng;
 	}
 	
-	public HashMap<String, ArrayList<String>> getMeanHsah() {
+	public HashMap<String, ArrayList<String>> getMeanHash() {
 		return meanHash;
 	}
 	public void setMeanHash(String part, String mean) {

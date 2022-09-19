@@ -18,27 +18,36 @@ public class ExtendsController {
 	private WordService service;
 	
 	@RequestMapping("insert")
-	public boolean insert(@RequestBody HashMap<String, String> input) {
+	public int insert(@RequestBody HashMap<String, String> input) {
 		// service insert 메서드 호출
+		int result = 0;
 		String eng = input.get("eng");
 		String mean = input.get("mean");
 		String part = input.get("part");
 		System.out.printf("eng : %s / mean : %s / part : %s", eng, mean, part);
-		
-		return service.insertWord(eng, mean, part);
+		try {
+			result = service.insertWord(eng, mean, part);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 	
 	@RequestMapping("select")
 	public Word select(@RequestBody HashMap<String, String> input) {
 		String selectKeyword = input.get("keyword");
-//		System.out.println(selectKeyword);
-		Word word = service.selectWord(selectKeyword);
-//		System.out.println(word);
-		if(word != null) {
-			return word;
+		Word word = null;
+		System.out.println(selectKeyword);
+		try {
+			word = service.selectWord(selectKeyword);
+			
+		}catch(Exception e) {
+			System.out.println("검색중 예외 발생");
+			e.printStackTrace();
 		}
-		System.out.println("검색 결과 없음");
-		return null;
+		System.out.println(word);
+		return word;
 	}
 	
 	@RequestMapping("selectall/word")

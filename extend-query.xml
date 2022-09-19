@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>extend-query.xml file</comment>
+
+	<entry key="selectWord">
+		SELECT eng, pos, mean, accurateCount, wrongCount
+		FROM t_eng e
+		INNER JOIN t_mean m ON m.eng_fk = e.eng WHERE e.eng = ?
+	</entry>
+
+	<entry key="insertEng">
+		INSERT INTO t_eng (eng) VALUES (?)
+	</entry>
+	
+	<entry key="insertMean">
+		INSERT INTO t_mean (pos, mean, eng_fk) VALUES (?, ?, ?)
+	</entry>
+	
+	<entry key="engDupCheck">
+		SELECT * FROM t_eng WHERE eng = ?
+	</entry>
+</properties>
